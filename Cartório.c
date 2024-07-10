@@ -96,15 +96,15 @@ int deletar()
 	
 	printf("Digite o CPF do usuário a ser deletado:  ");
 	scanf("%s",cpf);
+	system("pause");
+	
+	FILE *file;
+	file = fopen(cpf,"r");
 	
 	remove(cpf);
 	
 	printf("Usuário Deletado com sucesso!.\n");
 	system("pause");
-	
-	
-	FILE *file;
-	file = fopen(cpf,"r");
 	
 	if(file == NULL)
 	{
@@ -117,46 +117,63 @@ int deletar()
 int main()
 {
 	int opcao=0; //Definindo as variáveis
-	int x=1;
+	int laco=1;
+	char senhadigitada[10]="a";
+	int comparacao;
 	
-	for(x=1;x=1;)
+	printf("###Sistema de Registro Institucioanl EBAC###\n\n");
+	while(1)//inicio do loop de validação de senha
 	{
-       
-       system("cls"); //Responsável por limpar a tela
-	
-	   setlocale(LC_ALL, "Portuguese"); //Definindo a Linguagem
-	
-	   printf("### Cartório da EBAC ###\n\n"); //Início do menu
-	   printf("Escolha a opção desejada do menu:\n\n");
-	   printf("\t1 - Registrar nomes\n");
-	   printf("\t2 - Consultar nomes\n");
-	   printf("\t3 - Deletar nomes\n\n"); 
-	   printf("Opção:  ");//Fim do menu
-	
-	   scanf("%d", &opcao); //Armazenando a escolha do usuário
-	
-	   system("cls");
-	   
-	   
-	   switch(opcao) //início da seleção do menu
-	   {
-	   	case 1:
-	   	registro();  //chamada de funções
-		break;
+		printf("Login de Administrador!\n\nDigite a sua senha:  ");
+		scanf("%s", senhadigitada);// armazena a senha na variavel 'senhadigitada'
 		
-		case 2:
-		consulta();
-		break;
-		
-		case 3:
-		deletar();
-		break;
-		
-		default:
-		printf("Essa opção não está disponível !\n");
-		system("pause");
-		break;
-			
-	   }
+		comparacao = strcmp(senhadigitada, "admin");
+		if (comparacao == 0)
+		{
+			printf("Acesso permitido!\n");
+			break;
+		}
+		else
+		{
+			printf("Senha incorreta! Tente novamente.\n");
+			system("pause");
+		}
+	}
+	    while (1)
+	    {
+	     setlocale(LC_ALL, "Portuguese");
+	     system("cls");
+	     printf("###Sistema de Registro Institucional EBAC###\n\n");
+	     printf("Escolha a opção desejada do menu:\n\n");
+	     printf("\t1 - Registrar Nomes\n");
+	     printf("\t2 - Consultar Nomes\n");
+	     printf("\t3 - Deletar Nomes\n");
+	     printf("\t4 - Sair do sistema\n\n");
+	     printf("Opção: ");
+	    
+	     scanf("%d", &opcao);
+	    
+	     system("cls");
+	    
+	     switch(opcao)
+	     {
+	     	case 1:
+	      	 registro();
+	      	 break;
+	      	
+	      	 case 2:
+	      	 consulta();
+	      	 break;
+	      	
+	      	 case 3:
+	      	 deletar();
+	      	 break;
+	      	
+	      	 case 4:
+	      	 printf("Obrigado por utilizar o sistema!");
+	      	 return 0;
+	      	 break;
+		     } //fim do switch  	 
+		 } //fim do while
+		  
 	 } //Fim da seleção
-}
